@@ -6,13 +6,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const coursesJson = await request.json()
+    const payloadJson = await request.json()
     console.log('request json is:')
-    console.log(coursesJson);
+    console.log(payloadJson);
 
     //logic to save to MySQL here
     const repo = new JsonTableRepository();
-    const saveResult = await repo.saveCourses(coursesJson);
+    const saveResult = await repo.saveCourses(payloadJson);
     console.log(saveResult);
 
     return Response.json({ saveResult })

@@ -1,4 +1,5 @@
 import { Course } from '@/app/models/course';
+import { CoursePayload } from '@/app/models/course-payload';
 import { NextResponse } from 'next/server';
 
 const sendCourseData = async() => {
@@ -6,7 +7,9 @@ const sendCourseData = async() => {
   var course2 = new Course("Advanced Biology", "TSC", "BIOL", 301);
   var course3 = new Course("Software Engineering", "OEC", "CSCI", 371);
   var courses = [ course1, course2, course3 ];
-  console.log(JSON.stringify(courses));
+  var userId = 2;
+  var payload = new CoursePayload(userId, courses);
+  console.log(JSON.stringify(payload));
 
   const rawResponse = await fetch('http://localhost:3000/api/receiver', {
     method: 'POST',
@@ -14,7 +17,7 @@ const sendCourseData = async() => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(courses)
+    body: JSON.stringify(payload)
   });
   const content = await rawResponse.json();
 
